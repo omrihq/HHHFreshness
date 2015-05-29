@@ -16,17 +16,8 @@ def add_sortable_tag(html_code):
 	insert_pos = html_code.find("TABLE") + 6
 	html_code = html_code[:insert_pos] + 'class=\"sortable\" ' + html_code[insert_pos:]
 	return html_code
-	
-def main():
-	#User agent stuff get into reddit
-	user_agent = "Freshness by /u/programmeroftheday"
-	r = praw.Reddit(user_agent=user_agent)
 
-	#Get the new submissions
-	submissions = r.get_subreddit('hiphopheads').get_new(limit=30)
-	fresh_subs = get_fresh(submissions)
-
-	#Testing HTML.py
+def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
 
 	for sub in fresh_subs:
@@ -36,9 +27,21 @@ def main():
 		except Exception,e:
 			print sub
 			print str(e)
+	return str(t)
 
-	html_code = str(t)
-	html_code = add_sortable_tag(html_code)
+def main():
+	#User agent stuff get into reddit
+	user_agent = "Freshness by /u/programmeroftheday"
+	r = praw.Reddit(user_agent=user_agent)
+
+	#Get the new submissions
+	submissions = r.get_subreddit('hiphopheads').get_new(limit=30)
+	fresh_subs = get_fresh(submissions)
+
+	table = create_table(fresh_subs)
+
+	html_code = add_sortable_tag(table)
+
 	print html_code
 
 
