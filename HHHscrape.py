@@ -22,7 +22,7 @@ def main():
 	fresh_subs = get_fresh(submissions)
 
 	#Testing HTML.py
-	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments'], class="sortable") #Need to add artist
+	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
 
 	for sub in fresh_subs:
 		try:
