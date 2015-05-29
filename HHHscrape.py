@@ -8,7 +8,7 @@ import difflib
 def get_fresh(submissions):
 
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
-	fresh = [submission for submission in submissions if ("[fresh]" in str(submission).lower()) or ("fresh" in str(submission.link_flair_text).lower())]
+	fresh = [submission for submission in submissions if ("[fresh" in str(submission).lower()) or ("fresh" in str(submission.link_flair_text).lower())]
 	return fresh
 
 def get_date(submission):
@@ -22,20 +22,29 @@ def add_sortable_tag(html_code):
 
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
-
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
-			t.rows.append([sub.title.encode('utf-8'), sub.score, date, sub.num_comments])
+			end_fresh = sub.title.encode('utf-8').find("]")
+			if end_fresh != -1:
+				title = sub.title.encode('utf-8')[end_fresh+1:]
+			else:
+				title = sub.title.encode('utf-8')
+			link = HTML.link(title, sub.url)
+			t.rows.append([link, sub.score, date, sub.num_comments])
 		except Exception,e:
 			print sub
 			print str(e)
 	return str(t)
 
-#def similarity(title1, title2):
-#	title1 = title1.lower().replace("[fresh]", "")
-#	title2 = title2.lower().replace("[fresh]", "")
-#    return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
+def similarity(title1, title2):
+	title1 = title1.lower().replace("[fresh]", "")
+	title2 = title2.lower().replace("[fresh]", "")
+	ratio = .75
+	return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
+
+def add_to_table(table, submission):
+	similar = False
 
 
 def main():
@@ -44,7 +53,7 @@ def main():
 	r = praw.Reddit(user_agent=user_agent)
 
 	#Get the new submissions
-	submissions = r.get_subreddit('hiphopheads').get_hot(limit=10)
+	submissions = r.get_subreddit('hiphopheads').get_hot(limit=50)
 	fresh_subs = get_fresh(submissions)
 
 	table = create_table(fresh_subs)
