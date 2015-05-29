@@ -2,10 +2,13 @@ import praw
 import sys
 import datetime
 import HTML
+import difflib
 
 #Returns a list of submission-types (see: praw) that have the word "[fresh]" in them
 def get_fresh(submissions):
-	fresh = [submission for submission in submissions if "[fresh]" in str(submission).lower()]
+
+	#For links who didn't post fresh on a song so the mods update it with a fresh flair
+	fresh = [submission for submission in submissions if ("[fresh]" in str(submission).lower()) or ("fresh" in str(submission.link_flair_text).lower())]
 	return fresh
 
 def get_date(submission):
@@ -29,13 +32,19 @@ def create_table(fresh_subs):
 			print str(e)
 	return str(t)
 
+#def similarity(title1, title2):
+#	title1 = title1.lower().replace("[fresh]", "")
+#	title2 = title2.lower().replace("[fresh]", "")
+#    return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
+
+
 def main():
 	#User agent stuff get into reddit
 	user_agent = "Freshness by /u/programmeroftheday"
 	r = praw.Reddit(user_agent=user_agent)
 
 	#Get the new submissions
-	submissions = r.get_subreddit('hiphopheads').get_new(limit=30)
+	submissions = r.get_subreddit('hiphopheads').get_hot(limit=10)
 	fresh_subs = get_fresh(submissions)
 
 	table = create_table(fresh_subs)
