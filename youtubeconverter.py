@@ -6,7 +6,7 @@ from oauth2client.tools import argparser
 # tab of
 #   https://cloud.google.com/console
 # Please ensure that you have enabled the YouTube Data API for your project.
-DEVELOPER_KEY = "Replace" #Hidden from you 
+DEVELOPER_KEY = "replace" #Hidden from you 
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
@@ -26,23 +26,28 @@ def youtube_search(options):
   # matching videos, channels, and playlists.
 	for search_result in search_response.get("items", []):
 		if search_result["id"]["kind"] == "youtube#video": 
-			videos.append("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
-		elif search_result["id"]["kind"] == "youtube#channel": 
-			channels.append("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["channelId"]))
-		elif search_result["id"]["kind"] == "youtube#playlist": 
-			playlists.append("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["playlistId"]))
-  	
-  	print "Videos:\n", "\n".join(video.encode("utf-8") for video in videos), "\n"
-  	print "Channels:\n", "\n".join(channels), "\n"
-  	print "Playlists:\n", "\n".join(playlists), "\n"
+			#videos.append("%s (%s)" % (search_result["snippet"]["title"], "https://www.youtube.com/watch?v=" + search_result["id"]["videoId"]))
+			videos.append("https://www.youtube.com/watch?v=" + search_result["id"]["videoId"])
 
+  	return videos
 
-if __name__ == "__main__":
-	argparser.add_argument("--q", help="Search term", default="")
-	argparser.add_argument("--max-results", help="Max results", default=25)
+def search(search_term):
+	argparser.add_argument("--q", help="Search term", default=search_term)
+	argparser.add_argument("--max-results", help="Max results", default=5)
 	args = argparser.parse_args()
 
 	try:
-		youtube_search(args)
+		return youtube_search(args)
 	except HttpError, e:
 		print "An HTTP error %d occurred:\n%s" % (e.resp.status, e.content)
+
+def if_youtube_url(url):
+	if "youtube" in url:
+		return True
+
+def convert_to_download(submission):
+
+
+if __name__ == '__main__':
+	print "\n".join(video for video in search("Tinashe Ft. Dej Loaf - All Hands On Deck (Remix)") if if_youtube_url(video))
+

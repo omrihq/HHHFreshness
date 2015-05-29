@@ -21,7 +21,7 @@ def add_sortable_tag(html_code):
 	return html_code
 
 def create_table(fresh_subs):
-	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
+	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Download Link']) #Need to add artist
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
@@ -34,7 +34,7 @@ def create_table(fresh_subs):
 			link = HTML.link(title, sub.url)
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
-			t.rows.append([link, sub.score, date, comments])
+			t.rows.append([link, sub.score, date, comments, " "])
 		except Exception,e:
 			print sub
 			print str(e)
@@ -46,8 +46,6 @@ def similarity(title1, title2):
 	ratio = .75
 	return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
 
-#def add_to_table(table, submission):
-#	similar = False
 
 
 def main():
