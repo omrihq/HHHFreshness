@@ -12,6 +12,11 @@ def get_date(submission):
 	time = submission.created
 	return datetime.datetime.fromtimestamp(time)	
 
+def add_sortable_tag(html_code):
+	insert_pos = html_code.find("TABLE") + 6
+	html_code = html_code[:insert_pos] + 'class=\"sortable\" ' + html_code[insert_pos:]
+	return html_code
+	
 def main():
 	#User agent stuff get into reddit
 	user_agent = "Freshness by /u/programmeroftheday"
@@ -31,8 +36,10 @@ def main():
 		except Exception,e:
 			print sub
 			print str(e)
+
 	html_code = str(t)
-	print html_code	
+	html_code = add_sortable_tag(html_code)
+	print html_code
 
 
 if __name__ == '__main__':
