@@ -1,0 +1,42 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+	
+.container table{
+    border: 2px solid yellow; 
+}
+
+.container td{
+	border: 2px solid yellow; 
+	padding: 6px;
+}
+
+.container th{
+	border: 2px solid yellow; 
+}
+
+.jumbotron h1 {
+
+	display: inline;
+
+	position: relative;
+
+	font: 100px Helvetica, Sans-Serif;
+
+	letter-spacing: -5px;
+
+	color: rgba(0,150,200,0.5); 
+
+}
+
+.jumbotron h1:after {
+
+	content: "FRESHness";
+
+	position: absolute; left: 10px; top: 5px;
+
+	color: rgba(255,0,0,0.4);   
+
+}
