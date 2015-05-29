@@ -25,13 +25,16 @@ def create_table(fresh_subs):
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
+
 			end_fresh = sub.title.encode('utf-8').find("]")
 			if end_fresh != -1:
 				title = sub.title.encode('utf-8')[end_fresh+1:]
 			else:
 				title = sub.title.encode('utf-8')
 			link = HTML.link(title, sub.url)
-			t.rows.append([link, sub.score, date, sub.num_comments])
+
+			comments = HTML.link(sub.num_comments, sub.permalink)
+			t.rows.append([link, sub.score, date, comments])
 		except Exception,e:
 			print sub
 			print str(e)
@@ -43,8 +46,8 @@ def similarity(title1, title2):
 	ratio = .75
 	return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
 
-def add_to_table(table, submission):
-	similar = False
+#def add_to_table(table, submission):
+#	similar = False
 
 
 def main():
@@ -53,7 +56,7 @@ def main():
 	r = praw.Reddit(user_agent=user_agent)
 
 	#Get the new submissions
-	submissions = r.get_subreddit('hiphopheads').get_hot(limit=50)
+	submissions = r.get_subreddit('hiphopheads').get_hot(limit=100)
 	fresh_subs = get_fresh(submissions)
 
 	table = create_table(fresh_subs)
