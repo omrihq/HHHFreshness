@@ -1,3 +1,4 @@
+import mechanize
 from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
@@ -6,21 +7,20 @@ from oauth2client.tools import argparser
 # tab of
 #   https://cloud.google.com/console
 # Please ensure that you have enabled the YouTube Data API for your project.
-DEVELOPER_KEY = "replace" #Hidden from you 
-YOUTUBE_API_SERVICE_NAME = "youtube"
-YOUTUBE_API_VERSION = "v3"
+
 
 def youtube_search(options):
-	youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
-	developerKey=DEVELOPER_KEY)	
+	DEVELOPER_KEY = "Replace" #Hidden from you 
+	YOUTUBE_API_SERVICE_NAME = "youtube"
+	YOUTUBE_API_VERSION = "v3"
+
+	youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,developerKey=DEVELOPER_KEY)	
 
   	# Call the search.list method to retrieve results matching the specified
   	# query term.
 
 	search_response = youtube.search().list(q=options.q, part="id,snippet", maxResults=options.max_results).execute()	
 	videos = []
-	channels = []
-	playlists = []
 
   # Add each result to the appropriate list, and then display the lists of
   # matching videos, channels, and playlists.
@@ -41,13 +41,21 @@ def search(search_term):
 	except HttpError, e:
 		print "An HTTP error %d occurred:\n%s" % (e.resp.status, e.content)
 
-def if_youtube_url(url):
-	if "youtube" in url:
-		return True
+def youtube_url(url):
+	return "youtube" in url
+
+
 
 def convert_to_download(submission):
+	br = mechanize.Browser()
+	br.addheaders = [('User-agent', 'Firefox')]
+
+	response = br.open("http://www.youtube-mp3.org/")
+	link = submission.url
+	title = submissions.title
+	if youtube_url(link):
+		pass
 
 
 if __name__ == '__main__':
-	print "\n".join(video for video in search("Tinashe Ft. Dej Loaf - All Hands On Deck (Remix)") if if_youtube_url(video))
-
+	print "\n".join(video for video in search("Tinashe Ft. Dej Loaf - All Hands On Deck (Remix)") if youtube_url(video))

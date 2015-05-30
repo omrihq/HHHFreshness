@@ -6,7 +6,6 @@ import difflib
 
 #Returns a list of submission-types (see: praw) that have the word "[fresh]" in them
 def get_fresh(submissions):
-
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
 	fresh = [submission for submission in submissions if ("[fresh" in str(submission).lower()) or ("fresh" in str(submission.link_flair_text).lower())]
 	return fresh
@@ -21,9 +20,9 @@ def add_sortable_tag(html_code):
 	return html_code
 
 def create_table(fresh_subs):
-	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Download Link']) #Need to add artist
+	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Youtube link']) #Need to add artist
 	for sub in fresh_subs:
-		try:
+		#try:
 			date = get_date(sub)
 
 			end_fresh = sub.title.encode('utf-8').find("]")
@@ -33,11 +32,17 @@ def create_table(fresh_subs):
 				title = sub.title.encode('utf-8')
 			link = HTML.link(title, sub.url)
 
+#			if youtubeconverter.youtube_url(sub.url):
+#				print sub.url
+#			else:
+#				print youtubeconverter.search(sub.title.encode('ascii', 'ignore'))[0]
+#			#url = get_youtube(sub)
+
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			t.rows.append([link, sub.score, date, comments, " "])
-		except Exception,e:
-			print sub
-			print str(e)
+		#except Exception,e:
+		#	print sub
+		#	print str(e)
 	return str(t)
 
 def similarity(title1, title2):
