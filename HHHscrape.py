@@ -3,6 +3,7 @@ import sys
 import datetime
 import HTML
 import difflib
+import youtubeconverter
 
 #Returns a list of submission-types (see: praw) that have the word "[fresh]" in them
 def get_fresh(submissions):
@@ -36,12 +37,12 @@ def create_table(fresh_subs):
 			else:
 				title = sub.title.encode('utf-8')
 			link = HTML.link(title, sub.url)
-
-#			if youtubeconverter.youtube_url(sub.url):
-#				print sub.url
-#			else:
-#				print youtubeconverter.search(sub.title.encode('ascii', 'ignore'))[0]
-#			#url = get_youtube(sub)
+			print sub
+			if youtubeconverter.youtube_url(sub.url):
+				print sub.url
+			else:
+ 				print youtubeconverter.search(sub.title.encode('ascii', 'ignore'))[0]
+			#url = get_youtube(sub)
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			t.rows.append([link, sub.score, date, comments, " "])

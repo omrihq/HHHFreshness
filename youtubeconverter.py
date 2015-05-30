@@ -9,8 +9,8 @@ from oauth2client.tools import argparser
 # Please ensure that you have enabled the YouTube Data API for your project.
 
 
-def youtube_search(options):
-	DEVELOPER_KEY = "Replace" #Hidden from you 
+def youtube_search(search_string, max_results=5):
+	DEVELOPER_KEY = "replace with yours" #Hidden from you 
 	YOUTUBE_API_SERVICE_NAME = "youtube"
 	YOUTUBE_API_VERSION = "v3"
 
@@ -18,8 +18,8 @@ def youtube_search(options):
 
   	# Call the search.list method to retrieve results matching the specified
   	# query term.
-
-	search_response = youtube.search().list(q=options.q, part="id,snippet", maxResults=options.max_results).execute()	
+  	search_response = youtube.search().list(q=search_string, part="id,snippet", maxResults=max_results).execute()
+	#search_response = youtube.search().list(q=options.q, part="id,snippet", maxResults=options.max_results).execute()	
 	videos = []
 
   # Add each result to the appropriate list, and then display the lists of
@@ -32,12 +32,9 @@ def youtube_search(options):
   	return videos
 
 def search(search_term):
-	argparser.add_argument("--q", help="Search term", default=search_term)
-	argparser.add_argument("--max-results", help="Max results", default=5)
-	args = argparser.parse_args()
-
 	try:
-		return youtube_search(args)
+		return youtube_search(search_term)
+
 	except HttpError, e:
 		print "An HTTP error %d occurred:\n%s" % (e.resp.status, e.content)
 
@@ -57,5 +54,6 @@ def convert_to_download(submission):
 		pass
 
 
-if __name__ == '__main__':
-	print "\n".join(video for video in search("Tinashe Ft. Dej Loaf - All Hands On Deck (Remix)") if youtube_url(video))
+#if __name__ == '__main__':
+#	print "\n".join(video for video in search("Bill gates") if youtube_url(video))
+#	print "\n".join(video for video in search("Ted talks") if youtube_url(video))
