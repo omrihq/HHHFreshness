@@ -84,7 +84,13 @@ def insert_table(html_table):
 	newhtml += html_table
 	txt.seek(0,0)
 	newhtml += txt.read()[end+8:]
-	print newhtml
+	txt.close()
+
+	#The sooner you replace this the better
+	new_index = open(filename, 'w')
+	new_index.write(newhtml)
+
+
 
 #	newHtml = txt.read()[:start+1] + html_table
 #	txt.seek(0,0)
