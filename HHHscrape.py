@@ -19,6 +19,11 @@ def add_sortable_tag(html_code):
 	html_code = html_code[:insert_pos] + 'class=\"sortable\" ' + html_code[insert_pos:]
 	return html_code
 
+def add_non_sort_tag(html_code):
+	insert_pos = html_code.find("Youtube link")
+	html_code = html_code[:insert_pos-1] + ' class=\"sorttable_nosort\"' + html_code[insert_pos-1:]
+	return html_code
+
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Youtube link']) #Need to add artist
 	for sub in fresh_subs:
@@ -64,7 +69,7 @@ def main():
 
 	table = create_table(fresh_subs)
 
-	html_code = add_sortable_tag(table)
+	html_code = add_non_sort_tag(add_sortable_tag(table))
 
 	print html_code
 
