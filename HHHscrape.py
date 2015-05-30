@@ -21,6 +21,7 @@ def add_sortable_tag(html_code):
 	return html_code
 
 def add_non_sort_tag(html_code):
+	#Not useful until mp3conversion
 	insert_pos = html_code.find("Song Link")
 	html_code = html_code[:insert_pos-1] + ' class=\"sorttable_nosort\"' + html_code[insert_pos-1:]
 	return html_code
@@ -35,7 +36,7 @@ def audiomack_url(url):
 	return "audiomack" in url
 
 def create_table(fresh_subs):
-	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Song Link']) #Need to add artist
+	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
@@ -46,18 +47,19 @@ def create_table(fresh_subs):
 				title = sub.title.encode('utf-8')[end_fresh+1:]
 			else:
 				title = sub.title.encode('utf-8')
-			link = HTML.link(title, sub.url)
 
 
 			if youtube_url(sub.url) or soundcloud_url(sub.url) or audiomack_url(sub.url):
 				url = sub.url
 			else:
  				url = youtubeconverter.youtube_search(title)[0]
+ 				#print title, url
 
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
-			url = HTML.link("Track", url)
-			t.rows.append([link, sub.score, date, comments, url])
+			link = HTML.link(title, url)
+
+			t.rows.append([link, sub.score, date, comments])
 		except Exception,e:
 			print sub
 			print str(e)
@@ -69,6 +71,30 @@ def similarity(title1, title2):
 	ratio = .75
 	return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
 
+def insert_table(html_table):
+	#VERY SKETCHY/find an alternative, this hack is an abomination
+	filename = "HHHSite/index.html"
+	txt = open(filename, 'r')
+	start = txt.read().find("<TABLE")
+	txt.seek(0,0)
+	end = txt.read().find("</TABLE>")
+	txt.seek(0,0)
+	newhtml = txt.read()[:start]
+	txt.seek(0,0)
+	newhtml += html_table
+	txt.seek(0,0)
+	newhtml += txt.read()[end+8:]
+	print newhtml
+
+#	newHtml = txt.read()[:start+1] + html_table
+#	txt.seek(0,0)
+#	newHtml += txt.read()[end+1:]
+#	txt.close()
+#
+#	print newHtml
+	#newtxt = open(filename, 'w')
+	#newtxt.write(newHtml)
+	#print newHtml
 
 
 def main():
@@ -82,9 +108,10 @@ def main():
 
 	table = create_table(fresh_subs)
 
-	html_code = add_non_sort_tag(add_sortable_tag(table))
+	#No column with no sort tag yet, will save for DL conversion
+	html_code = add_sortable_tag(table)
 
-	print html_code
+	insert_table(html_code)
 
 
 if __name__ == '__main__':
