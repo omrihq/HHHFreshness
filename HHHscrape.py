@@ -28,7 +28,7 @@ def add_non_sort_tag(html_code):
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Youtube link']) #Need to add artist
 	for sub in fresh_subs:
-		#try:
+		try:
 			date = get_date(sub)
 
 			end_fresh = sub.title.encode('utf-8').find("]")
@@ -37,18 +37,18 @@ def create_table(fresh_subs):
 			else:
 				title = sub.title.encode('utf-8')
 			link = HTML.link(title, sub.url)
-			print sub
+
 			if youtubeconverter.youtube_url(sub.url):
-				print sub.url
+				url = sub.url
 			else:
- 				print youtubeconverter.search(sub.title.encode('ascii', 'ignore'))[0]
-			#url = get_youtube(sub)
+ 				url = youtubeconverter.search(sub.title.encode('ascii', 'ignore'))[0]
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
-			t.rows.append([link, sub.score, date, comments, " "])
-		#except Exception,e:
-		#	print sub
-		#	print str(e)
+			url = HTML.link("Track", url)
+			t.rows.append([link, sub.score, date, comments, url])
+		except Exception,e:
+			print sub
+			print str(e)
 	return str(t)
 
 def similarity(title1, title2):
