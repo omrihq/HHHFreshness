@@ -21,16 +21,26 @@ def add_sortable_tag(html_code):
 	return html_code
 
 def add_non_sort_tag(html_code):
-	insert_pos = html_code.find("Youtube link")
+	insert_pos = html_code.find("Song Link")
 	html_code = html_code[:insert_pos-1] + ' class=\"sorttable_nosort\"' + html_code[insert_pos-1:]
 	return html_code
 
+def youtube_url(url):
+	return "youtube" in url
+
+def soundcloud_url(url):
+	return "soundcloud" in url
+
+def audiomack_url(url):
+	return "audiomack" in url
+
 def create_table(fresh_subs):
-	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Youtube link']) #Need to add artist
+	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments', 'Song Link']) #Need to add artist
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
 
+			#Find where the [FRESH] ends and remove it from the title by finding where the "]" is (To account for [Fresh Mixtape], [FRESH Album], etc)
 			end_fresh = sub.title.encode('utf-8').find("]")
 			if end_fresh != -1:
 				title = sub.title.encode('utf-8')[end_fresh+1:]
@@ -38,10 +48,12 @@ def create_table(fresh_subs):
 				title = sub.title.encode('utf-8')
 			link = HTML.link(title, sub.url)
 
-			if youtubeconverter.youtube_url(sub.url):
+
+			if youtube_url(sub.url) or soundcloud_url(sub.url) or audiomack_url(sub.url):
 				url = sub.url
 			else:
- 				url = youtubeconverter.search(sub.title.encode('ascii', 'ignore'))[0]
+ 				url = youtubeconverter.youtube_search(title)[0]
+
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			url = HTML.link("Track", url)
