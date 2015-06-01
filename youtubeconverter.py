@@ -2,6 +2,8 @@ import mechanize
 from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
+import pafy
+
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
 # tab of
@@ -10,7 +12,7 @@ from oauth2client.tools import argparser
 
 
 def youtube_search(search_string, max_results=5):
-	DEVELOPER_KEY = "replace with yours" #Hidden from you 
+	DEVELOPER_KEY = "AIzaSyC1LGo3fDTEKMt_5ugNgwm862kDAiHmxX0" #Hidden from you 
 	YOUTUBE_API_SERVICE_NAME = "youtube"
 	YOUTUBE_API_VERSION = "v3"
 
@@ -28,32 +30,18 @@ def youtube_search(search_string, max_results=5):
 		if search_result["id"]["kind"] == "youtube#video": 
 			#videos.append("%s (%s)" % (search_result["snippet"]["title"], "https://www.youtube.com/watch?v=" + search_result["id"]["videoId"]))
 			videos.append("https://www.youtube.com/watch?v=" + search_result["id"]["videoId"])
-
-  	return videos
-
-def search(search_term):
 	try:
-		return youtube_search(search_term)
-
-	except HttpError, e:
+  		return videos
+  	except HttpError, e:
 		print "An HTTP error %d occurred:\n%s" % (e.resp.status, e.content)
 
-def youtube_url(url):
-	return "youtube" in url
 
+def convert_to_download(vidID):
 
+	vid =  pafy.new(vidID)
+	music = vid.getbestaudio()
+	song = music.getbest("m4a").download()
 
-def convert_to_download(submission):
-	br = mechanize.Browser()
-	br.addheaders = [('User-agent', 'Firefox')]
-
-	response = br.open("http://www.youtube-mp3.org/")
-	link = submission.url
-	title = submissions.title
-	if youtube_url(link):
-		pass
-
-
-#if __name__ == '__main__':
-#	print "\n".join(video for video in search("Bill gates") if youtube_url(video))
+if __name__ == '__main__':
+	print "\n".join(video for video in search("Ace hood - 4 A Minute"))
 #	print "\n".join(video for video in search("Ted talks") if youtube_url(video))
