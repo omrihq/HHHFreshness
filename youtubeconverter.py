@@ -12,7 +12,7 @@ import pafy
 
 
 def youtube_search(search_string, max_results=5):
-	DEVELOPER_KEY = "AIzaSyC1LGo3fDTEKMt_5ugNgwm862kDAiHmxX0" #Hidden from you 
+	DEVELOPER_KEY = "Replace me" #Hidden from you 
 	YOUTUBE_API_SERVICE_NAME = "youtube"
 	YOUTUBE_API_VERSION = "v3"
 
