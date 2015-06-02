@@ -1,8 +1,18 @@
 import mechanize
+import httplib2
+import os
+import sys
+import pafy
+
+from apiclient.discovery import build
+from apiclient.errors import HttpError
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.file import Storage
+from oauth2client.tools import argparser, run_flow
 from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
-import pafy
+
 
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
@@ -37,11 +47,10 @@ def youtube_search(search_string, max_results=5):
 
 
 def convert_to_download(vidID):
-
 	vid =  pafy.new(vidID)
 	music = vid.getbestaudio()
 	song = music.getbest("m4a").download()
 
-if __name__ == '__main__':
-	print "\n".join(video for video in search("Ace hood - 4 A Minute"))
+#if __name__ == '__main__':
+#	print "\n".join(video for video in search("Ace hood - 4 A Minute"))
 #	print "\n".join(video for video in search("Ted talks") if youtube_url(video))
