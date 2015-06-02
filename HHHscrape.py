@@ -35,6 +35,9 @@ def soundcloud_url(url):
 def audiomack_url(url):
 	return "audiomack" in url
 
+def vimeo_url(url):
+	return "vimeo" in url
+
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
 	for sub in fresh_subs:
@@ -48,13 +51,15 @@ def create_table(fresh_subs):
 			else:
 				title = sub.title.encode('utf-8')
 
-
-			if youtube_url(sub.url) or soundcloud_url(sub.url) or audiomack_url(sub.url):
-				url = sub.url
-			else:
- 				url = youtubeconverter.youtube_search(title)[0]
- 				#print title, url
-
+			try:
+				if youtube_url(sub.url) or soundcloud_url(sub.url) or audiomack_url(sub.url) or vimeo_url(sub.url):
+					url = sub.url
+				else:
+ 					url = youtubeconverter.youtube_search(title)[0]
+ 					#print title, url
+ 			except: 
+ 				pass
+	
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			link = HTML.link(title, url)
@@ -90,17 +95,6 @@ def insert_table(html_table):
 	new_index = open(filename, 'w')
 	new_index.write(newhtml)
 
-
-
-#	newHtml = txt.read()[:start+1] + html_table
-#	txt.seek(0,0)
-#	newHtml += txt.read()[end+1:]
-#	txt.close()
-#
-#	print newHtml
-	#newtxt = open(filename, 'w')
-	#newtxt.write(newHtml)
-	#print newHtml
 
 
 def main():
