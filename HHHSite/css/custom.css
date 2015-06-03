@@ -53,11 +53,4 @@ div#commentForm {
 
 }
 
-#frame1 {
-	height: 166px;
-	overflow: hidden;
-	-moz-transition: all .5s linear;
-	-webkit-transition: all .5s linear;
-	o transition: all .5s linear;
-	transition: all .5s linear;
-}
+.fa-stack { cursor: pointer; cursor: hand; }
