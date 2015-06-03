@@ -2,10 +2,16 @@
 @import url("https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 
 body {
-	
+
   padding-top: 0px;
   padding-bottom: 0px;
 }
+/*
+div#commentForm {
+      margin: 0px 20px 0px 20px;
+      display: none;
+} 
+*/
 
 .container table{
     border: 2px solid yellow; 
@@ -22,6 +28,7 @@ body {
 }
 
 /*Tentative until the randomizer is pretty */
+
 .jumbotron h1 {
 
 	display: inline;
@@ -44,4 +51,13 @@ body {
 
 	color: rgba(255,0,0,0.35);   
 
+}
+
+#frame1 {
+	height: 166px;
+	overflow: hidden;
+	-moz-transition: all .5s linear;
+	-webkit-transition: all .5s linear;
+	o transition: all .5s linear;
+	transition: all .5s linear;
 }
