@@ -64,24 +64,14 @@ def create_soundcloud_span(sub):
 def create_youtube_span(url):
 	spanID = url[url.find("v=")+2:]
 	youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
-	final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
-	return final_span
+	final_span = "<span onclick=\"reply_click(this.id)\" value=\"off\" id=\"a" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span><br>"
+	span_with_frame = final_span + get_youtube_widget(spanID)
+	return span_with_frame
 
-#def create_span_button(sub):
-#	if youtube_url(sub.url):
-#		url = sub.url
-#		spanID = url[url.find("v=")+2:]
-#		youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
-#		final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
-#		return final_span
-#	elif soundcloud_url(sub.url):
-#		spanID = get_soundcloud_id(sub)
-#
-#		soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
-#		final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
-#		span_with_frame = final_span + get_soundcloud_widget(sub)
-#		return span_with_frame
-
+def get_youtube_widget(tubeID):
+	#Start all widget ids with "a" to avoid ids starting with numbers
+	frame = "<iframe id=\"a" + tubeID + "-frame\" width=\"400\" height=\"315\" src=\"https://www.youtube.com/embed/" + tubeID + "\" frameborder=\"0\" allowfullscreen></iframe>"
+	return frame
 
 def get_soundcloud_widget(sub):
 	# create a client object with your app credentials
@@ -115,7 +105,7 @@ def cut_fresh(sub):
 
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
-	css_soundcloud_ids = []
+	css_ids = []
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
@@ -137,14 +127,15 @@ def create_table(fresh_subs):
 
 			if soundcloud_url(url):
 				span = create_soundcloud_span(sub)
+				css_ids.append(get_soundcloud_id(sub))
 			elif youtube_url(url):
 				span = create_youtube_span(url)
+				#Youtube IDs
+				css_ids.append("a" + url[url.find("v=")+2:])
 
 			print ("Passed span")
 			print span
 
-			if soundcloud_url(sub.url):
-				css_soundcloud_ids.append(get_soundcloud_id(sub))
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			link = HTML.link(title, url)
@@ -154,7 +145,7 @@ def create_table(fresh_subs):
 		except Exception,e:
 			print sub
 			print str(e)
-	return str(t), css_soundcloud_ids
+	return str(t), css_ids
 
 
 def similarity(title1, title2):
