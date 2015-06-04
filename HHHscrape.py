@@ -81,8 +81,8 @@ def get_soundcloud_widget(sub):
 		# print the html for the player widget
 		beg_frame = embed_info.html
 		frameID = get_soundcloud_id(sub)
-		frameID = beg_frame[:7] + " id=\"" + frameID + "-frame\"" + beg_frame[7:]
-		return frameID
+		endframeID = beg_frame[:7] + " id=\"" + frameID + "-frame\"" + beg_frame[7:]
+		return endframeID
 	except Exception,e:
 		print str(e)
 
@@ -100,6 +100,7 @@ def cut_fresh(sub):
 
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
+	css_soundcloud_ids = []
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
@@ -118,6 +119,9 @@ def create_table(fresh_subs):
 			
 			span = create_span_button(sub)
 
+			if soundcloud_url(sub.url):
+				css_soundcloud_ids.append(get_soundcloud_id(sub))
+
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			link = HTML.link(title, url)
 
@@ -125,7 +129,7 @@ def create_table(fresh_subs):
 		except Exception,e:
 			print sub
 			print str(e)
-	return str(t)
+	return str(t), css_soundcloud_ids
 
 
 def similarity(title1, title2):
@@ -154,6 +158,23 @@ def insert_table(html_table):
 	new_index.write(newhtml)
 
 
+def insert_css_rules(frame_ids):
+	filename = "HHHSite/css/custom.css"
+	txt = open(filename, 'r')
+	start = txt.read().find("hand;}")
+	txt.seek(0,0)
+	newhtml = txt.read()[:start+7]
+	for ID in frame_ids:
+		txt.seek(0,0)
+		newhtml += "#" + ID + "-frame { height: 0px; overflow: hidden; transition: all .5s linear; }" + "\n"
+
+	txt.close()
+
+	new_index = open(filename, 'w')
+	new_index.write(newhtml)
+
+
+
 
 def main():
 	#User agent stuff get into reddit
@@ -164,12 +185,15 @@ def main():
 	submissions = r.get_subreddit('hiphopheads').get_hot(limit=100)
 	fresh_subs = get_fresh(submissions)
 
-	table = create_table(fresh_subs)
+	table, frame_ids = create_table(fresh_subs)
 
 	#No column with no sort tag yet, will save for DL conversion
 	html_code = add_sortable_tag(table)
 
 	insert_table(html_code)
+
+	insert_css_rules(frame_ids)
+
 
 
 if __name__ == '__main__':
