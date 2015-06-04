@@ -13,16 +13,16 @@
     }
 }*/
 
+
 function reply_click(clicked_id){
-    var a = false
-    alert(clicked_id)
-    if(a == false) {
+    if(document.getElementById(clicked_id).getAttribute("value") == "off") {
+        console.log(document.getElementById(clicked_id).getAttribute("value"))
         var idtofind = clicked_id + "-frame"
         document.getElementById(idtofind).style.height = "166px";
-        a = true;
+        document.getElementById(clicked_id).setAttribute("value", "on")
     } else {
+        var idtofind = clicked_id + "-frame"
         document.getElementById(idtofind).style.height = "0px";
-        a = false;
+        document.getElementById(clicked_id).setAttribute("value", "off")
     }
-    
 }
