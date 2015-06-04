@@ -53,20 +53,34 @@ def get_soundcloud_id(sub):
 	return spanID
 
 
-def create_span_button(sub):
-	if youtube_url(sub.url):
-		url = sub.url
-		spanID = url[url.find("v=")+2:]
-		youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
-		final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
-		return final_span
-	elif soundcloud_url(sub.url):
-		spanID = get_soundcloud_id(sub)
+def create_soundcloud_span(sub):
+	spanID = get_soundcloud_id(sub)
 
-		soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
-		final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
-		span_with_frame = final_span + get_soundcloud_widget(sub)
-		return span_with_frame
+	soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
+	final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
+	span_with_frame = final_span + get_soundcloud_widget(sub)
+	return span_with_frame
+
+def create_youtube_span(url):
+	spanID = url[url.find("v=")+2:]
+	youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
+	final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
+	return final_span
+
+#def create_span_button(sub):
+#	if youtube_url(sub.url):
+#		url = sub.url
+#		spanID = url[url.find("v=")+2:]
+#		youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
+#		final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
+#		return final_span
+#	elif soundcloud_url(sub.url):
+#		spanID = get_soundcloud_id(sub)
+#
+#		soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
+#		final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
+#		span_with_frame = final_span + get_soundcloud_widget(sub)
+#		return span_with_frame
 
 
 def get_soundcloud_widget(sub):
@@ -81,6 +95,7 @@ def get_soundcloud_widget(sub):
 		# print the html for the player widget
 		beg_frame = embed_info.html
 		frameID = get_soundcloud_id(sub)
+		#Insert the ID into the frame so the css can insert it
 		endframeID = beg_frame[:7] + " id=\"" + frameID + "-frame\"" + beg_frame[7:]
 		return endframeID
 	except Exception,e:
@@ -89,12 +104,12 @@ def get_soundcloud_widget(sub):
 
 def cut_fresh(sub):
 	#Find where the [FRESH] ends and remove it from the title by finding where the "]" is (To account for [Fresh Mixtape], [FRESH Album], etc)
-	end_fresh = sub.title.encode('ascii').find("]")
+	end_fresh = sub.title.encode('ascii', 'ignore').find("]")
 	if end_fresh != -1:
-		title = sub.title.encode('ascii')[end_fresh+1:]
+		title = sub.title.encode('ascii', 'ignore')[end_fresh+1:]
 		return title
 	else:
-		title = sub.title.encode('ascii')
+		title = sub.title.encode('ascii', 'ignore')
 		return title
 
 
@@ -104,8 +119,10 @@ def create_table(fresh_subs):
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
+			print("passed date")
 			
 			title = cut_fresh(sub)
+
 
 			try:
 				if youtube_url(sub.url) or soundcloud_url(sub.url):
@@ -113,19 +130,27 @@ def create_table(fresh_subs):
 				else:
 					tubeID = youtubeconverter.youtube_search(title)[0]
  					url = "https://www.youtube.com/watch?v=" + tubeID
- 					print url
- 			except: 
- 				pass
+ 			except Exception, e: 
+ 				print title
+ 				print str(e), ("Didn''t pass IDing")
 			
-			span = create_span_button(sub)
+
+			if soundcloud_url(url):
+				span = create_soundcloud_span(sub)
+			elif youtube_url(url):
+				span = create_youtube_span(url)
+
+			print ("Passed span")
+			print span
 
 			if soundcloud_url(sub.url):
 				css_soundcloud_ids.append(get_soundcloud_id(sub))
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			link = HTML.link(title, url)
+			linkspan = link + span
 
-			t.rows.append([link + span, sub.score, date, comments])
+			t.rows.append([linkspan.encode('ascii', 'ignore'), sub.score, date, comments.encode('ascii', 'ignore')])
 		except Exception,e:
 			print sub
 			print str(e)
