@@ -4,6 +4,8 @@ import datetime
 import HTML
 import difflib
 import youtubeconverter
+import soundcloud
+import json
 
 
 #The span to include in the thing
@@ -42,6 +44,15 @@ def audiomack_url(url):
 def vimeo_url(url):
 	return "vimeo" in url
 
+def get_soundcloud_id(sub):
+	title = cut_fresh(sub)
+	invalid_id_selectors = "~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split()
+	#Add a space
+	invalid_id_selectors.append(chr(32))
+	spanID = ''.join([c.lower() for c in title if c not in invalid_id_selectors])
+	return spanID
+
+
 def create_span_button(sub):
 	if youtube_url(sub.url):
 		url = sub.url
@@ -50,15 +61,31 @@ def create_span_button(sub):
 		final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
 		return final_span
 	elif soundcloud_url(sub.url):
-		title = cut_fresh(sub)
-		invalid_id_selectors = "~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split()
-		#Add a space
-		invalid_id_selectors.append(chr(32))
-		spanID = ''.join([c.lower() for c in title if c not in invalid_id_selectors])
+		spanID = get_soundcloud_id(sub)
 
 		soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
-		final_span = "<span onClick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
-		return final_span
+		final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
+		span_with_frame = final_span + get_soundcloud_widget(sub)
+		return span_with_frame
+
+
+def get_soundcloud_widget(sub):
+	# create a client object with your app credentials
+	try:
+		url = sub.url
+		client = soundcloud.Client(client_id='YOUR_CLIENT_ID')
+	
+		# get a tracks oembed data
+		embed_info = client.get('/oembed', url=url)
+		
+		# print the html for the player widget
+		beg_frame = embed_info.html
+		frameID = get_soundcloud_id(sub)
+		frameID = beg_frame[:7] + " id=\"" + frameID + "-frame\"" + beg_frame[7:]
+		return frameID
+	except Exception,e:
+		print str(e)
+
 
 def cut_fresh(sub):
 	#Find where the [FRESH] ends and remove it from the title by finding where the "]" is (To account for [Fresh Mixtape], [FRESH Album], etc)
@@ -99,6 +126,7 @@ def create_table(fresh_subs):
 			print sub
 			print str(e)
 	return str(t)
+
 
 def similarity(title1, title2):
 	title1 = title1.lower().replace("[fresh]", "")
