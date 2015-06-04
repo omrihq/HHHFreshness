@@ -14,6 +14,7 @@ def get_fresh(submissions):
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
 	fresh = [submission for submission in submissions if ("[fresh" in str(submission.title.encode('ascii', 'ignore')).lower()) or (submission.link_flair_text and "fresh" in str(submission.link_flair_text.encode('ascii', 'ignore')).lower())]
 	return fresh
+
 def get_date(submission):
 	time = submission.created
 	return datetime.datetime.fromtimestamp(time)	
@@ -41,21 +42,45 @@ def audiomack_url(url):
 def vimeo_url(url):
 	return "vimeo" in url
 
+def create_span_button(sub):
+	if youtube_url(sub.url):
+		url = sub.url
+		spanID = url[url.find("v=")+2:]
+		youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
+		final_span = "<span onclick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span>"
+		return final_span
+	elif soundcloud_url(sub.url):
+		title = cut_fresh(sub)
+		invalid_id_selectors = "~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split()
+		#Add a space
+		invalid_id_selectors.append(chr(32))
+		spanID = ''.join([c.lower() for c in title if c not in invalid_id_selectors])
+
+		soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
+		final_span = "<span onClick=\"reply_click(this.id)\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
+		return final_span
+
+def cut_fresh(sub):
+	#Find where the [FRESH] ends and remove it from the title by finding where the "]" is (To account for [Fresh Mixtape], [FRESH Album], etc)
+	end_fresh = sub.title.encode('ascii').find("]")
+	if end_fresh != -1:
+		title = sub.title.encode('ascii')[end_fresh+1:]
+		return title
+	else:
+		title = sub.title.encode('ascii')
+		return title
+
+
 def create_table(fresh_subs):
 	t = HTML.Table(header_row=['Title', 'Score', 'Date Posted', 'Comments']) #Need to add artist
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
-
-			#Find where the [FRESH] ends and remove it from the title by finding where the "]" is (To account for [Fresh Mixtape], [FRESH Album], etc)
-			end_fresh = sub.title.encode('ascii').find("]")
-			if end_fresh != -1:
-				title = sub.title.encode('ascii')[end_fresh+1:]
-			else:
-				title = sub.title.encode('ascii')
+			
+			title = cut_fresh(sub)
 
 			try:
-				if youtube_url(sub.url) or soundcloud_url(sub.url) or audiomack_url(sub.url) or vimeo_url(sub.url):
+				if youtube_url(sub.url) or soundcloud_url(sub.url):
 					url = sub.url
 				else:
 					tubeID = youtubeconverter.youtube_search(title)[0]
@@ -64,11 +89,12 @@ def create_table(fresh_subs):
  			except: 
  				pass
 			
+			span = create_span_button(sub)
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			link = HTML.link(title, url)
-			
-			t.rows.append([link + "<span onclick=\"reply_click(this.id)\" id=\"soundcloud1\" class=\"fa-stack fa-1x\"> <i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i></span>", sub.score, date, comments])
+
+			t.rows.append([link + span, sub.score, date, comments])
 		except Exception,e:
 			print sub
 			print str(e)
@@ -115,8 +141,7 @@ def main():
 	#No column with no sort tag yet, will save for DL conversion
 	html_code = add_sortable_tag(table)
 
-	print html_code
-	#insert_table(html_code)
+	insert_table(html_code)
 
 
 if __name__ == '__main__':
