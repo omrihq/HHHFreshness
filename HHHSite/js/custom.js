@@ -1,4 +1,4 @@
-window.onload = function(){
+/*window.onload = function(){
     var a = false;
     
     document.getElementById('redspan').onclick = function() {
@@ -11,4 +11,18 @@ window.onload = function(){
     }
     
     }
+}*/
+
+function reply_click(clicked_id){
+    var a = false
+    alert(clicked_id)
+    if(a == false) {
+        var idtofind = clicked_id + "-frame"
+        document.getElementById(idtofind).style.height = "166px";
+        a = true;
+    } else {
+        document.getElementById(idtofind).style.height = "0px";
+        a = false;
+    }
+    
 }

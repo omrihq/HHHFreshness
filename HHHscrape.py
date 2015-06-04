@@ -5,12 +5,15 @@ import HTML
 import difflib
 import youtubeconverter
 
+
+#The span to include in the thing
+#<span onclick="reply_click(this.id)" id="soundcloud1" class="fa-stack fa-1x"> <i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-soundcloud fa-inverse fa-stack-1x"></i></span>
+
 #Returns a list of submission-types (see: praw) that have the word "[fresh]" in them
 def get_fresh(submissions):
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
-	fresh = [submission for submission in submissions if ("[fresh" in str(submission).lower()) or ("fresh" in str(submission.link_flair_text).lower())]
+	fresh = [submission for submission in submissions if ("[fresh" in str(submission.title.encode('ascii', 'ignore')).lower()) or (submission.link_flair_text and "fresh" in str(submission.link_flair_text.encode('ascii', 'ignore')).lower())]
 	return fresh
-
 def get_date(submission):
 	time = submission.created
 	return datetime.datetime.fromtimestamp(time)	
@@ -45,26 +48,27 @@ def create_table(fresh_subs):
 			date = get_date(sub)
 
 			#Find where the [FRESH] ends and remove it from the title by finding where the "]" is (To account for [Fresh Mixtape], [FRESH Album], etc)
-			end_fresh = sub.title.encode('utf-8').find("]")
+			end_fresh = sub.title.encode('ascii').find("]")
 			if end_fresh != -1:
-				title = sub.title.encode('utf-8')[end_fresh+1:]
+				title = sub.title.encode('ascii')[end_fresh+1:]
 			else:
-				title = sub.title.encode('utf-8')
+				title = sub.title.encode('ascii')
 
 			try:
 				if youtube_url(sub.url) or soundcloud_url(sub.url) or audiomack_url(sub.url) or vimeo_url(sub.url):
 					url = sub.url
 				else:
- 					url = youtubeconverter.youtube_search(title)[0]
- 					#print title, url
+					tubeID = youtubeconverter.youtube_search(title)[0]
+ 					url = "https://www.youtube.com/watch?v=" + tubeID
+ 					print url
  			except: 
  				pass
-	
+			
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
 			link = HTML.link(title, url)
-
-			t.rows.append([link, sub.score, date, comments])
+			
+			t.rows.append([link + "<span onclick=\"reply_click(this.id)\" id=\"soundcloud1\" class=\"fa-stack fa-1x\"> <i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i></span>", sub.score, date, comments])
 		except Exception,e:
 			print sub
 			print str(e)
@@ -91,7 +95,7 @@ def insert_table(html_table):
 	newhtml += txt.read()[end+8:]
 	txt.close()
 
-	#The sooner you replace this the better
+	#The sooner you replace this the better	
 	new_index = open(filename, 'w')
 	new_index.write(newhtml)
 
@@ -111,7 +115,8 @@ def main():
 	#No column with no sort tag yet, will save for DL conversion
 	html_code = add_sortable_tag(table)
 
-	insert_table(html_code)
+	print html_code
+	#insert_table(html_code)
 
 
 if __name__ == '__main__':

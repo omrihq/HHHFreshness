@@ -31,16 +31,41 @@
 
 <body>
   <style type="text/css">
-  #frame1 {
+  #soundcloud1-frame {
     height: 0px;
     overflow: hidden;
     transition: all .5s linear;
   }
   </style>
-  <script src="sorttable.js"></script>
 
+<!--
+  <script src="sorttable.js"></script>
+  <script src="http://connect.soundcloud.com/sdk.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+    SC.initialize({
+  client_id: 'YOUR_CLIENT_ID'
+});
+
+$(document).ready(function() {
+    SC.get('/tracks/293', function(track) {
+       SC.oEmbed(track.permalink_url, document.getElementById('player'    )); 
+    });
+});
+    </script>
+-->
     <div class="jumbotron">
       <script src="js/custom.js"></script>
+
+      <span onClick="reply_click(this.id)" id="https://soundcloud.com/topdawgent/money-trees-deuce" class="fa-stack fa-1x"> <i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-soundcloud fa-inverse fa-stack-1x"></i></span>
+
+      <!--<iframe width="560" height="315" src="http://www.youtube.com/embed/9or8mK794Qo" frameborder="0" allowfullscreen></iframe>-->
+
+      <!--
+        Example of table with soundcloud
+      <TD><a href="https://soundcloud.com/topdawgent/money-trees-deuce"> Jay Rock - Money Trees Deuce by TopDawgENT</a> <span id="redspan" class="fa-stack fa-1x"> <i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-soundcloud fa-inverse fa-stack-1x"></i></span>
+            <iframe id="frame1" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/208514214&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+          </TD> -->
       <!-- soundcloud logos
       <span id="redspan" class="fa-stack fa-lg"> <i id="redspan" class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-soundcloud fa-inverse fa-stack-1x"></i> </span> <span class="fa-stack fa-lg"> <btn id="redspan" class="fa fa-circle fa-stack-2x"></btn> <btn class="fa fa-soundcloud fa-inverse fa-stack-1x"></btn> </span>
       -->
@@ -48,166 +73,123 @@
         <h1><strong>FRESHness <i class="fa fa-reddit-square"></i> </strong></h1>
 
         <TABLE class="sortable" cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
-         <TR>
-          <TH>Title</TH>
-          <TH>Score</TH>
-          <TH>Date Posted</TH>
-          <TH>Comments</TH>
-         </TR>
-         <TR>
-          <!-- Demo/template of the soundcloud expand/collapse -->
-          <TD><a href="https://soundcloud.com/topdawgent/money-trees-deuce"> Jay Rock - Money Trees Deuce by TopDawgENT</a> <span id="redspan" class="fa-stack fa-1x"> <i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-soundcloud fa-inverse fa-stack-1x"></i></span>
-            <iframe id="frame1" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/208514214&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
-          </TD>
-          <TD>1366</TD>
-          <TD>2015-06-02 23:30:22</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38absv/fresh_jay_rock_money_trees_deuce_by_topdawgent/">217</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/internet-band/special-affair"> The Internet - Special Affair</a></TD>
-          <TD>217</TD>
-          <TD>2015-06-02 19:27:41</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3893w6/fresh_the_internet_special_affair/">30</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=YYjUFCGd7Hg"> OG Maco - How You Say ft. Quavo</a></TD>
-          <TD>91</TD>
-          <TD>2015-06-02 22:11:06</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/389ym3/fresh_og_maco_how_you_say_ft_quavo/">19</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/noisey/8-cozz-345-sharp"> Cozz - 345 Sharp</a></TD>
-          <TD>19</TD>
-          <TD>2015-06-03 00:29:07</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38ak74/fresh_cozz_345_sharp/">7</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=GodiVxAmAmo"> The Weeknd - Chapter III (album teaser trailer?)</a></TD>
-          <TD>4</TD>
-          <TD>2015-06-03 07:51:43</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38c3fm/fresh_the_weeknd_chapter_iii_album_teaser_trailer/">0</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=YaDzy8ftjJE"> Waka Flocka Flame - 'Game On' (feat. Good Charlotte)</a></TD>
-          <TD>53</TD>
-          <TD>2015-06-02 15:44:33</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38812v/fresh_waka_flocka_flame_game_on_feat_good/">46</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=T0xFdlk_5-s"> Snow Tha Product - I'm Saying</a></TD>
-          <TD>13</TD>
-          <TD>2015-06-02 23:14:23</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38a9hz/fresh_snow_tha_product_im_saying/">7</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://vimeo.com/128033079/recommended"> Lucki Eck$ - Birdgang</a></TD>
-          <TD>9</TD>
-          <TD>2015-06-03 00:30:53</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38akgs/fresh_lucki_eck_birdgang/">2</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=Ex55lbcS4wc"> Eminem - Phenomenal</a></TD>
-          <TD>378</TD>
-          <TD>2015-06-02 04:03:47</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3864j8/fresh_eminem_phenomenal/">311</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=BlKCdcUdo6M"> Hodgy Beats Drops 3 New Tracks</a></TD>
-          <TD>113</TD>
-          <TD>2015-06-02 09:59:40</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/387289/fresh_hodgy_beats_drops_3_new_tracks/">5</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/iammamag/dodger-blue"> Becky G - Dodger Blue</a></TD>
-          <TD>7</TD>
-          <TD>2015-06-03 01:47:40</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38avj7/fresh_becky_g_dodger_blue/">2</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=qmMruHRetRQ"> Beatking - Houston 3 AM</a></TD>
-          <TD>32</TD>
-          <TD>2015-06-02 16:14:14</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3885dc/fresh_mixtape_beatking_houston_3_am/">7</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=IVuKr5AS1Cw"> Dom Kennedy - Alhambra</a></TD>
-          <TD>2</TD>
-          <TD>2015-06-03 06:27:39</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38bvcj/fresh_dom_kennedy_alhambra/">0</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="http://soundcloud.com/closed-sessions/odd-couple-me-time-fthe-omys-kweku-collins-jack-red"> Odd Couple - "Me Time" f/The O'My's, Kweku Collins &amp; Jack Red</a>        </TD>
-          <TD>4</TD>
-          <TD>2015-06-03 01:00:59</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38aol4/fresh_odd_couple_me_time_fthe_omys_kweku_collins/">0</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="http://soundcloud.com/closed-sessions/odd-couple-me-time-fthe-omys-kweku-collins-jack-red"> Lil Durk Interview With The Breakfast Club! Doesn't Want To Raise        His Kids In Chicago, Squashing Beef With Chief Keef, Says He's Numb To Death &amp; More</a></TD>
-          <TD>15</TD>
-          <TD>2015-06-02 17:36:35</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/388ixb/fresh_lil_durk_interview_with_the_breakfast_club/">8</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/whoispryde/sets/richvale-summer"> Pryde - RICHVALE SUMMER</a></TD>
-          <TD>1</TD>
-          <TD>2015-06-03 07:58:31</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38c44r/fresh_pryde_richvale_summer/">0</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/stonesthrow/sets/dam-funk-stfu"> Dam Funk - STFU (EP)</a></TD>
-          <TD>8</TD>
-          <TD>2015-06-02 20:30:45</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/389fro/fresh_dam_funk_stfu_ep/">1</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=oZ_dPwNvCL4"> [FRESH] Yung Cole - B*tch I'm Yung Cole</a></TD>
-          <TD>1</TD>
-          <TD>2015-06-03 07:42:48</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38c2l8/original_fresh_yung_cole_btch_im_yung_cole/">1</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=c56rk29A6hQ"> Viper - I Sell Tha Best Cocaine</a></TD>
-          <TD>1</TD>
-          <TD>2015-06-03 07:07:52</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38bzao/fresh_viper_i_sell_tha_best_cocaine/">0</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=dol2Lqug1S0"> Lil Durk - What Your Life Like (Official Music Video)</a></TD>
-          <TD>2</TD>
-          <TD>2015-06-03 01:06:23</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38ape4/fresh_lil_durk_what_your_life_like_official_music/">0</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=9or8mK794Qo"> Migos - I Just Wanna</a></TD>
-          <TD>5</TD>
-          <TD>2015-06-02 21:53:11</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/389vaw/fresh_migos_i_just_wanna/">4</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=LnrXtsrs_cA"> Meek Mill - Check (Prod By Metro Boomin)</a></TD>
-          <TD>173</TD>
-          <TD>2015-06-02 01:04:59</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/385gkj/fresh_meek_mill_check_prod_by_metro_boomin/">72</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://www.youtube.com/watch?v=XURCfnX1gsc"> Dom Kennedy's By Dom Kennedy</a></TD>
-          <TD>86</TD>
-          <TD>2015-06-02 04:45:20</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3869lo/fresh_dom_kennedys_by_dom_kennedy/">50</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/xavierwulf/sets/xavier-wulf-project-x-full-cd"> Xavier Wulf - "Project X" (Full CD)</a></TD>
-          <TD>79</TD>
-          <TD>2015-06-02 04:05:21</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3864ql/fresh_xavier_wulf_project_x_full_cd/">30</a></TD>
-         </TR>
-         <TR>
-          <TD><a href="https://soundcloud.com/skepta/shutdown-idris-elba-remix"> Skepta ft Idris Elba - Shutdown Remix</a></TD>
-          <TD>722</TD>
-          <TD>2015-06-01 15:39:48</TD>
-          <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3833pg/fresh_skepta_ft_idris_elba_shutdown_remix/">252</a></TD>
-         </TR>
-        </TABLE>
+ <TR>
+  <TH>Title</TH>
+  <TH>Score</TH>
+  <TH>Date Posted</TH>
+  <TH>Comments</TH>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=5120hcD0EA8"> Lil Wayne - Glory (Tidal Exclusive)</a></TD> 
+  <TD>732</TD>
+  <TD>2015-06-03 17:19:51</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38dyrl/fresh_lil_wayne_glory_tidal_exclusive/">329</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="http://soundcloud.com/denzelcurryph/denzel-curry-captain-sea-fonk?utm_source=soundcloud&amp;utm_campaign=share&amp;utm_medium=twitter"> Denzel Curry - Captain Sea Fonk</a></TD>
+  <TD>303</TD>
+  <TD>2015-06-03 16:02:50</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38dlh5/fresh_denzel_curry_captain_sea_fonk/">50</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=9or8mK794Qo"> Migos - I Just Wanna</a></TD>
+  <TD>78</TD>
+  <TD>2015-06-03 18:57:36</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38egev/fresh_migos_i_just_wanna/">11</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=WZ3pkBM7j0M"> Wiz Khalifa - Lit [Official Video]</a></TD>
+  <TD>46</TD>
+  <TD>2015-06-03 20:32:54</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38ewwo/fresh_wiz_khalifa_lit_official_video/">12</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/topdawgent/money-trees-deuce"> Jay Rock - Money Trees Deuce by TopDawgENT</a> <span onclick="reply_click(this.id)" id="soundcloud1" class="fa-stack fa-1x"> <i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-soundcloud fa-inverse fa-stack-1x"></i></span>
+            <iframe id="soundcloud1-frame" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/208514214&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+    </TD>
+  <TD>1849</TD>
+  <TD>2015-06-02 23:30:22</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38absv/fresh_jay_rock_money_trees_deuce_by_topdawgent/">276</a></TD> 
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/itskiddkidd/ejected-bad-bitches-in-my-section-ft-lil-wayne"> Kidd Kidd - Ejected Ft. Lil Wayne</a></TD>
+  <TD>15</TD>
+  <TD>2015-06-03 23:04:41</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38fmax/fresh_kidd_kidd_ejected_ft_lil_wayne/">11</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=BBOm7cYzK2w"> Joell Ortiz, Cyhi The Prynce, Jarren Benton - CYPHER</a></TD>
+  <TD>23</TD>
+  <TD>2015-06-03 20:18:34</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38eufe/fresh_joell_ortiz_cyhi_the_prynce_jarren_benton/">7</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/teambackpack/jarren-benton-cyhi-the-prynce-joell-ortiz-mission-underground-la"> Jarren Benton, CyHi The Prynce, Joell Ortiz - Mission Underground LA by TEAMBACKPACK</a></TD>
+  <TD>6</TD>
+  <TD>2015-06-03 22:12:55</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38fe1m/fresh_jarren_benton_cyhi_the_prynce_joell_ortiz/">0</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=VbE3fLCC6q8"> Viper - I'm a Snake</a></TD>
+  <TD>4</TD>
+  <TD>2015-06-03 21:25:48</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38f61w/fresh_viper_im_a_snake/">2</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/melomakesmusic/sets/sessions-ep"> Melo - Sessions EP (x-post /r/UndergroundChicago)</a></TD>
+  <TD>3</TD>
+  <TD>2015-06-04 00:01:23</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38fuyz/fresh_mixtape_melo_sessions_ep_xpost/">2</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=WSdenW1KAGk"> Homosexual Compound - I Wanna Die, Thanks Mom</a></TD>
+  <TD>3</TD>
+  <TD>2015-06-04 02:10:59</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38gf6r/fresh_homosexual_compound_i_wanna_die_thanks_mom/">4</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=0DZRr4GGoTY">Bangin My Line ~ Pryde</a></TD>
+  <TD>3</TD>
+  <TD>2015-06-03 23:29:12</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38fpzi/freshbangin_my_line_pryde/">0</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/junglepussy/you-dont-know-prod-by-shy-guy"> Junglepussy - You Don't Know (prod. By Shy Guy)</a></TD>
+  <TD>2</TD>
+  <TD>2015-06-03 23:55:09</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38fu0a/fresh_junglepussy_you_dont_know_prod_by_shy_guy/">0</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=0u2_HsyZnug&amp;list=PLC8zccq-wvLaqcAMhMHTd84J4R23_aIVs"> Pryde - RICHVALE SUMMER</a></TD>
+  <TD>1</TD>
+  <TD>2015-06-04 02:46:05</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38gk74/fresh_pryde_richvale_summer/">0</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/dannyseth/safe"> Danny Seth - Safe (Prod. by Zach Nahome)</a></TD>
+  <TD>2</TD>
+  <TD>2015-06-03 22:08:20</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38fd9y/fresh_danny_seth_safe_prod_by_zach_nahome/">1</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/internet-band/special-affair"> The Internet - Special Affair</a></TD>
+  <TD>248</TD>
+  <TD>2015-06-02 19:27:41</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/3893w6/fresh_the_internet_special_affair/">46</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://soundcloud.com/angelomota/sets/crystalave"> Angelo Mota - Crystal Avenue</a></TD>
+  <TD>&nbsp;</TD>
+  <TD>2015-06-04 01:10:54</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38g5h5/fresh_angelo_mota_crystal_avenue/">0</a></TD>
+ </TR>
+ <TR>
+  <TD><a href="https://www.youtube.com/watch?v=zfv6FkbU0mU"> Supastition - Gold Standard</a></TD>
+  <TD>&nbsp;</TD>
+  <TD>2015-06-04 00:58:34</TD>
+  <TD><a href="http://www.reddit.com/r/hiphopheads/comments/38g3i8/fresh_album_supastition_gold_standard/">0</a></TD>
+ </TR>
+</TABLE>
         <!-- btn-danger is the class for a red button, primary is for blue-->
         <!-- <p><a class="btn btn-danger btn-lg" role="button">Learn more &raquo;</a></p> -->
         <!-- <img src="images/sailBoatLogo.png" title="ShipWreck'd Logo" alt="ShipWreck'd.org"> -->
