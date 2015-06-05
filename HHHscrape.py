@@ -16,7 +16,7 @@ from time import sleep
 def get_fresh(submissions):
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
 	fresh = [submission for submission in submissions if ("[fresh" in str(submission.title.encode('ascii', 'ignore')).lower()) or (submission.link_flair_text and "fresh" in str(submission.link_flair_text.encode('ascii', 'ignore')).lower())]
-	
+
 	return set(fresh)
 
 def get_date(submission):
@@ -126,7 +126,6 @@ def create_table(fresh_subs):
 	for sub in fresh_subs:
 		try:
 			date = get_date(sub)
-			print("passed date")
 			
 			title = cut_fresh(sub)
 
@@ -138,8 +137,7 @@ def create_table(fresh_subs):
 					tubeID = youtubeconverter.youtube_search(title)[0]
  					url = "https://www.youtube.com/watch?v=" + tubeID
  			except Exception, e: 
- 				print title
- 				print str(e), ("Didn''t pass IDing")
+ 				print str(e), title
 			
 
 			if soundcloud_url(url):
@@ -149,9 +147,6 @@ def create_table(fresh_subs):
 				span = create_youtube_span(url)
 				#Youtube IDs
 				css_ids.append("a" + get_youtube_id(url))
-
-			print ("Passed span")
-			print span
 
 
 			comments = HTML.link(sub.num_comments, sub.permalink)
@@ -230,6 +225,7 @@ def main():
 		except Exception, e:
 			print str(e)
 
+		print "Going to sleep"
 		four_hours = 60*60*4
 		sleep(four_hours)
 
