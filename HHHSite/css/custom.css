@@ -9,16 +9,19 @@ body {
 
 
 .container table{
-    border: 2px solid yellow; 
+	border-radius: 10px;
+    border: 2px green; 
 }
 
 
 .container td{
+	border-radius: 10px;
 	border: 2px solid yellow; 
 	padding: 6px;
 }
 
 .container th{
+	border-radius: 10px;
 	border: 2px solid yellow; 
 }
 
@@ -48,20 +51,91 @@ body {
 
 }
 
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+/* .jumbotron means all things inside jumbotron, then text-align centers it*/
+
+/* unordered list in the class of nav, aka changing the buttons top right */
+ul.nav {
+	font-family: 'Indie Flower', cursive;
+	font-size: 18px;
+}
+/* makes the "One Million Lines" be the same font*/
+.navbar-header a {
+	font-family: 'Indie Flower', cursive;
+	font-size: 24px;
+}
+.shop-online {
+	background-color: #F8F8F8;
+} 
+.shop-online hr{
+	border-color: #006699;
+	width: 20%;
+	margin-top: 5px;
+}
+
+
+.shop-online h3, h2{
+	color: #006699;
+	font-family: "Indie Flower";
+}
+.shop-online h2:hover{
+	color:#003399;
+}
+
+
+
+.shop-online img{
+	width: 70px;
+	height: 70px;
+}
+.jumbotron h2{
+	padding-top: 150px
+}
+.jumbotron {
+	padding-bottom: 50px
+	text-align: center; 
+	background-image: url('../images/oceanBack.gif');
+	background-size: 1500px 700px;
+}
+
+.shop-online {
+	text-align: center;
+}
+
+
+
+.jumbotron h1 {
+	font-size: 100px;
+	margin-top: 0px;
+	margin-bottom: 50px;
+}
+
+
+/* makes the red button be font size 24 instead of 18*/
+.btn-lg {
+	font-size: 36px;
+}
+
+
 .fa-stack { cursor: pointer; cursor: hand;}
-#a06koEdJiwZg-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#a0AMRP9JTHlw-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#avgrAnmMjUD8-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#curreny-papersbounceprodbysledgrencjbampdreamer-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#aPuvFHe1XUE8-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#a0AMRP9JTHlw-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#a4mWh2NdVmDE-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+
+#ryanhemsworth-ryanpackv2-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#awpaHWS-N5G0ampfeatureyoutubeampab_channelRetrohash-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
 #axnXtY5_djjI-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#atQ7Qb7Sfs0I-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#aNY63DD82rlw-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#meridiandan-thebits-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#akllian-theatticparti-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#denzelcurry-captainseafonk-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#loylecarner-tierneyterrace-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
-#apBqOFMaIpHc-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#aPuvFHe1XUE8-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#curreny-papersbounceprodbysledgrencjbampdreamer-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
 #avgrAnmMjUD8-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#aqzDA2sNMJr4-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#attpswwwyoutubecomattribution_linka1RwjvnSNbKcampu2Fwatch3Fv3DfZz4B0aDKlc26feature3Dshare-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#aNY63DD82rlw-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#an-BMO8kIYck-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#methodman-88coupes-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#methodman-88coupes-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#ets-callmewhenuneed-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#aZmlCpAJLNOI-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#avgrAnmMjUD8-frame { height: 0px; overflow: hidden; transition: all .5s linear; }
+#a06koEdJiwZg-frame { height: 0px; overflow: hidden; transition: all .5s linear; }

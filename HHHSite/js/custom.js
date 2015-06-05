@@ -16,7 +16,6 @@
 
 function reply_click(clicked_id){
     if(document.getElementById(clicked_id).getAttribute("value") == "off") {
-        console.log(document.getElementById(clicked_id).getAttribute("value"))
         var idtofind = clicked_id + "-frame"
         document.getElementById(idtofind).style.height = "166px";
         document.getElementById(clicked_id).setAttribute("value", "on")
@@ -25,4 +24,14 @@ function reply_click(clicked_id){
         document.getElementById(idtofind).style.height = "0px";
         document.getElementById(clicked_id).setAttribute("value", "off")
     }
+}
+
+function donate() {
+    //location.href = "http://www.amnestyusa.org/donate-to-amnesty";
+    window.open("https://www.booksforafrica.org/donate/funds.html")
+}
+
+function github() {
+    //location.href = "http://www.amnestyusa.org/donate-to-amnesty";
+    window.open("https://github.com/omrihq/HHHFreshness")
 }
