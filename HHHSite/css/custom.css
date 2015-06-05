@@ -7,6 +7,13 @@ body {
   padding-bottom: 0px;
 }
 
+.navbar {
+	padding-top: -5px;
+}
+
+#jump {
+	right: 1150px;
+}
 
 .container table{
 	border-radius: 10px;
@@ -25,7 +32,10 @@ body {
 	border: 2px solid yellow; 
 }
 
-/*Tentative until the randomizer is pretty */
+
+.jumbotron {
+	margin-bottom: 0px
+}
 
 .jumbotron h1 {
 
@@ -42,19 +52,26 @@ body {
 }
 
 .jumbotron h1:after {
-
 	content: "FRESHness";
-
 	position: absolute; left: 10px; top: 5px;
-
 	color: rgba(255,0,0,0.35);   
-
 }
+
+.jumbotron h1 {
+	font-size: 100px;
+	margin-top: 0px;
+	margin-bottom: 50px;
+}
+
+.jumbotron h2{
+	padding-top: 150px
+}
+
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
-  padding-bottom: 20px;
+
 }
 /* .jumbotron means all things inside jumbotron, then text-align centers it*/
 
@@ -68,52 +85,27 @@ ul.nav {
 	font-family: 'Indie Flower', cursive;
 	font-size: 24px;
 }
-.shop-online {
-	background-color: #F8F8F8;
-} 
+
 .shop-online hr{
 	border-color: #006699;
 	width: 20%;
 	margin-top: 5px;
 }
 
-
-.shop-online h3, h2{
-	color: #006699;
-	font-family: "Indie Flower";
-}
-.shop-online h2:hover{
-	color:#003399;
-}
-
-
-
-.shop-online img{
-	width: 70px;
-	height: 70px;
-}
-.jumbotron h2{
-	padding-top: 150px
-}
-.jumbotron {
-	padding-bottom: 50px
-	text-align: center; 
-	background-image: url('../images/oceanBack.gif');
-	background-size: 1500px 700px;
-}
-
 .shop-online {
 	text-align: center;
+	margin: 0px;
+	width:1440px;
 }
 
+	.shop-online h3, h2{
+	color: #006699;
+	font-family: "Indie Flower";
+	}
 
-
-.jumbotron h1 {
-	font-size: 100px;
-	margin-top: 0px;
-	margin-bottom: 50px;
-}
-
+	.shop-online h2:hover{
+		color:#003399;
+	}
 
 /* makes the red button be font size 24 instead of 18*/
 .btn-lg {

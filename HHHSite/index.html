@@ -30,8 +30,22 @@
 </head>
 
 <body>
-
-
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li id="jump"><a href="#about">Omri Hazan</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
 <!--
   <script src="sorttable.js"></script>
   <script src="http://connect.soundcloud.com/sdk.js"></script>
@@ -48,7 +62,7 @@ $(document).ready(function() {
 });
     </script>
 -->
-    <div class="jumbotron">
+    <div class="jumbotron" style="background: rgba(0,180,200,0.05)">
       <script src="js/custom.js"></script>
       <script src="sorttable.js"></script>
       <!--
@@ -176,7 +190,7 @@ $(document).ready(function() {
     </div>
 
 
-    <div class="container shop-online">
+    <div id="about" class="container shop-online" style="background: rgba(0,180,200,0.1);">
       <h2 id="shop">If You Insist...</h2>
       <hr>
       <div class="row">
@@ -193,7 +207,7 @@ $(document).ready(function() {
           <span class="fa-stack fa-2x" onClick="github()">
           <i class="fa fa-github fa-stack-2x"></i>
           </span>
-          <h3>GHECK OUT THE CODE!</h3>
+          <h3>CHECK OUT THE CODE!</h3>
           <p>Look at the code that makes this site possible! <br> (Although its a tad ugly so don't judge!)</p>
         </div>
       </div>
