@@ -6,6 +6,7 @@ import difflib
 import youtubeconverter
 import soundcloud
 import json
+from time import sleep
 
 
 #The span to include in the thing
@@ -15,17 +16,7 @@ import json
 def get_fresh(submissions):
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
 	fresh = [submission for submission in submissions if ("[fresh" in str(submission.title.encode('ascii', 'ignore')).lower()) or (submission.link_flair_text and "fresh" in str(submission.link_flair_text.encode('ascii', 'ignore')).lower())]
-	#An array of the subs that are similar enough
-	similar = [sub1 for x, sub1 in enumerate(fresh) for y, sub2 in enumerate(fresh) if (x!=y and similarity(sub1, sub2))]
-
-	#similar = []
-	#final_fresh = []
-	#for x, sub1 in enumerate(fresh):
-	#	flag = True
-	#	for y,sub2 in enumerate(fresh):
-	#		if (x!=y and similarity(sub1,sub2)):
-	#			similar.append(sub1)
-
+	
 	return set(fresh)
 
 def get_date(submission):
@@ -49,11 +40,6 @@ def youtube_url(url):
 def soundcloud_url(url):
 	return "soundcloud" in url
 
-def audiomack_url(url):
-	return "audiomack" in url
-
-def vimeo_url(url):
-	return "vimeo" in url
 
 def get_soundcloud_id(sub):
 	title = cut_fresh(sub)
@@ -225,21 +211,27 @@ def insert_css_rules(frame_ids):
 
 def main():
 	#User agent stuff get into reddit
-	user_agent = "Freshness by /u/programmeroftheday"
-	r = praw.Reddit(user_agent=user_agent)
+	while True:
+		try:
+			user_agent = "Freshness by /u/programmeroftheday"
+			r = praw.Reddit(user_agent=user_agent)
+		
+			#Get the new submissions
+			submissions = r.get_subreddit('hiphopheads').get_hot(limit=100)
+			fresh_subs = get_fresh(submissions)
+		
+			table, frame_ids = create_table(fresh_subs)
+		
+			html_code = add_sortable_tag(table)
+		
+			insert_table(html_code)
+		
+			insert_css_rules(frame_ids)
+		except Exception, e:
+			print str(e)
 
-	#Get the new submissions
-	submissions = r.get_subreddit('hiphopheads').get_hot(limit=100)
-	fresh_subs = get_fresh(submissions)
-
-	table, frame_ids = create_table(fresh_subs)
-
-	#No column with no sort tag yet, will save for DL conversion
-	html_code = add_sortable_tag(table)
-
-	insert_table(html_code)
-
-	insert_css_rules(frame_ids)
+		four_hours = 60*60*4
+		sleep(four_hours)
 
 
 
