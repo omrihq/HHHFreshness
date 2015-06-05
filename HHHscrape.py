@@ -15,7 +15,18 @@ import json
 def get_fresh(submissions):
 	#For links who didn't post fresh on a song so the mods update it with a fresh flair
 	fresh = [submission for submission in submissions if ("[fresh" in str(submission.title.encode('ascii', 'ignore')).lower()) or (submission.link_flair_text and "fresh" in str(submission.link_flair_text.encode('ascii', 'ignore')).lower())]
-	return fresh
+	#An array of the subs that are similar enough
+	similar = [sub1 for x, sub1 in enumerate(fresh) for y, sub2 in enumerate(fresh) if (x!=y and similarity(sub1, sub2))]
+
+	#similar = []
+	#final_fresh = []
+	#for x, sub1 in enumerate(fresh):
+	#	flag = True
+	#	for y,sub2 in enumerate(fresh):
+	#		if (x!=y and similarity(sub1,sub2)):
+	#			similar.append(sub1)
+
+	return set(fresh)
 
 def get_date(submission):
 	time = submission.created
@@ -52,6 +63,14 @@ def get_soundcloud_id(sub):
 	spanID = ''.join([c.lower() for c in title if c not in invalid_id_selectors])
 	return spanID
 
+def get_youtube_id(url):
+	spanID = url[url.find("v=")+2:]
+
+	invalid_id_selectors = "~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split()
+	#Add a space
+	invalid_id_selectors.append(chr(32))
+	tubeID = ''.join([c for c in spanID if c not in invalid_id_selectors])
+	return tubeID
 
 def create_soundcloud_span(sub):
 	spanID = get_soundcloud_id(sub)
@@ -63,12 +82,24 @@ def create_soundcloud_span(sub):
 
 def create_youtube_span(url):
 	spanID = url[url.find("v=")+2:]
+
+	invalid_id_selectors = "~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split()
+	#Add a space
+	invalid_id_selectors.append(chr(32))
+	spanID = ''.join([c for c in spanID if c not in invalid_id_selectors])
+
 	youtube_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-youtube-play fa-inverse fa-stack-1x\"></i>"
 	final_span = "<span onclick=\"reply_click(this.id)\" value=\"off\" id=\"a" + spanID + "\"class=\"fa-stack fa-1x\">" + youtube_tag + "</span><br>"
 	span_with_frame = final_span + get_youtube_widget(spanID)
 	return span_with_frame
 
 def get_youtube_widget(tubeID):
+
+	invalid_id_selectors = "~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split()
+	#Add a space
+	invalid_id_selectors.append(chr(32))
+	tubeID = ''.join([c for c in tubeID if c not in invalid_id_selectors])
+
 	#Start all widget ids with "a" to avoid ids starting with numbers
 	frame = "<iframe id=\"a" + tubeID + "-frame\" width=\"400\" height=\"315\" src=\"https://www.youtube.com/embed/" + tubeID + "\" frameborder=\"0\" allowfullscreen></iframe>"
 	return frame
@@ -131,7 +162,7 @@ def create_table(fresh_subs):
 			elif youtube_url(url):
 				span = create_youtube_span(url)
 				#Youtube IDs
-				css_ids.append("a" + url[url.find("v=")+2:])
+				css_ids.append("a" + get_youtube_id(url))
 
 			print ("Passed span")
 			print span
@@ -148,11 +179,11 @@ def create_table(fresh_subs):
 	return str(t), css_ids
 
 
-def similarity(title1, title2):
-	title1 = title1.lower().replace("[fresh]", "")
-	title2 = title2.lower().replace("[fresh]", "")
-	ratio = .75
-	return difflib.SequenceMatcher(None, title1.lower(), title2.lower()).ratio() >= ratio
+def similarity(sub1, sub2):
+	title1 = cut_fresh(sub1).lower()
+	title2 = cut_fresh(sub2).lower()
+	ratio = .62
+	return difflib.SequenceMatcher(None, title1, title2).ratio() >= ratio
 
 def insert_table(html_table):
 	#VERY SKETCHY/find an alternative, this hack is an abomination
