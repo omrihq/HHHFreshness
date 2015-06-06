@@ -183,7 +183,7 @@ def similarity(sub1, sub2):
 
 def insert_table(html_table):
 	#VERY SKETCHY/find an alternative, this hack is an abomination
-	filename = "HHHSite/index.html"
+	filename = "index.html"
 	txt = open(filename, 'r')
 	start = txt.read().find("<TABLE")
 	txt.seek(0,0)
@@ -202,7 +202,7 @@ def insert_table(html_table):
 
 
 def insert_css_rules(frame_ids):
-	filename = "HHHSite/css/custom.css"
+	filename = "css/custom.css"
 	txt = open(filename, 'r')
 	start = txt.read().find("hand;}")
 	txt.seek(0,0)
