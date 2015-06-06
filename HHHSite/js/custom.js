@@ -27,11 +27,13 @@ function reply_click(clicked_id){
 }
 
 function donate() {
-    //location.href = "http://www.amnestyusa.org/donate-to-amnesty";
     window.open("https://www.booksforafrica.org/donate/funds.html")
 }
 
 function github() {
-    //location.href = "http://www.amnestyusa.org/donate-to-amnesty";
     window.open("https://github.com/omrihq/HHHFreshness")
+}
+
+function reddit() {
+    window.open("http://www.reddit.com/r/hiphopheads")
 }

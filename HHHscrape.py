@@ -6,6 +6,7 @@ import difflib
 import youtubeconverter
 import soundcloud
 import json
+import socket
 from time import sleep
 
 
@@ -39,6 +40,20 @@ def youtube_url(url):
 
 def soundcloud_url(url):
 	return "soundcloud" in url
+
+def is_connected():
+  REMOTE_SERVER = "www.google.com"
+  try:
+    # see if we can resolve the host name -- tells us if there is
+    # a DNS listening
+    host = socket.gethostbyname(REMOTE_SERVER)
+    # connect to the host -- tells us if the host is actually
+    # reachable
+    s = socket.create_connection((host, 80), 2)
+    return True
+  except:
+     pass
+  return False
 
 
 def get_soundcloud_id(sub):
@@ -225,9 +240,13 @@ def main():
 		print str(e)
 
 
-
-
-
 if __name__ == '__main__':
-	main()
-
+	if is_connected():
+		main()
+	else:
+		#Sleep for 30 minutes then try again
+		sleep(1800)
+		if is_connected():
+			main()
+		else:
+			sys.exit()
