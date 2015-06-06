@@ -1,4 +1,3 @@
-# HHHFreshness
-Grab the freshest songs off of http://www.reddit.com/r/hiphopheads/. 
-
-(sortable.js is NOT mine)
+## HHHFreshness
+Grabs the newest [FRESH] projects off of hiphopheads and compiles them into 1 long playlist. 
+Scrapes reddit/r/hiphopheads and adds all of the songs to the table.
