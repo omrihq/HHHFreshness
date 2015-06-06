@@ -77,7 +77,7 @@ def create_soundcloud_span(sub):
 	spanID = get_soundcloud_id(sub)
 
 	soundcloud_tag = "<i class=\"fa fa-circle fa-stack-2x\"></i> <i class=\"fa fa-soundcloud fa-inverse fa-stack-1x\"></i>"
-	final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
+	final_span = "<span onClick=\"reply_click(this.id)\" value=\"off\" id=\"a" + spanID + "\"class=\"fa-stack fa-1x\">" + soundcloud_tag + "</span>"
 	span_with_frame = final_span + get_soundcloud_widget(sub)
 	return span_with_frame
 
@@ -118,7 +118,7 @@ def get_soundcloud_widget(sub):
 		beg_frame = embed_info.html
 		frameID = get_soundcloud_id(sub)
 		#Insert the ID into the frame so the css can insert it
-		endframeID = beg_frame[:7] + " id=\"" + frameID + "-frame\"" + beg_frame[7:]
+		endframeID = beg_frame[:7] + " id=\"a" + frameID + "-frame\"" + beg_frame[7:]
 		return endframeID
 	except Exception,e:
 		print str(e)
@@ -157,7 +157,8 @@ def create_table(fresh_subs):
 
 			if soundcloud_url(url):
 				span = create_soundcloud_span(sub)
-				css_ids.append(get_soundcloud_id(sub))
+				#Makes sure css ID selector doesn't start with a number
+				css_ids.append("a" + get_soundcloud_id(sub))
 			elif youtube_url(url):
 				span = create_youtube_span(url)
 				#Youtube IDs
