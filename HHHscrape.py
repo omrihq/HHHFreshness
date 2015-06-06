@@ -206,28 +206,25 @@ def insert_css_rules(frame_ids):
 
 def main():
 	#User agent stuff get into reddit
-	while True:
-		try:
-			user_agent = "Freshness by /u/programmeroftheday"
-			r = praw.Reddit(user_agent=user_agent)
-		
-			#Get the new submissions
-			submissions = r.get_subreddit('hiphopheads').get_hot(limit=100)
-			fresh_subs = get_fresh(submissions)
-		
-			table, frame_ids = create_table(fresh_subs)
-		
-			html_code = add_sortable_tag(table)
-		
-			insert_table(html_code)
-		
-			insert_css_rules(frame_ids)
-		except Exception, e:
-			print str(e)
+	try:
+		user_agent = "Freshness by /u/programmeroftheday"
+		r = praw.Reddit(user_agent=user_agent)
+	
+		#Get the new submissions
+		submissions = r.get_subreddit('hiphopheads').get_hot(limit=100)
+		fresh_subs = get_fresh(submissions)
+	
+		table, frame_ids = create_table(fresh_subs)
+	
+		html_code = add_sortable_tag(table)
+	
+		insert_table(html_code)
+	
+		insert_css_rules(frame_ids)
+	except Exception, e:
+		print str(e)
 
-		print "Going to sleep"
-		four_hours = 60*60*4
-		sleep(four_hours)
+
 
 
 
