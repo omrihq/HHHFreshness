@@ -3,5 +3,5 @@ Grabs the newest [FRESH] projects off of hiphopheads and compiles them into 1 lo
 Scrapes reddit/r/hiphopheads and adds all of the songs to the table.
 
 ### Access	
-Check out http://www.alwaysdownto.party/ (Name from a free giveaway :)
+Check out http://freshness.party/ (Name from a free giveaway :)
 Enjoy!
