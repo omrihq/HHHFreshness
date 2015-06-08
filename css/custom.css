@@ -23,13 +23,13 @@ body {
 
 .container td{
 	border-radius: 10px;
-	border: 2px solid yellow; 
+	border: 2px solid #99CCFF; 
 	padding: 6px;
 }
 
 .container th{
 	border-radius: 10px;
-	border: 2px solid yellow; 
+	border: 2px solid #99CCFF; 
 }
 
 
